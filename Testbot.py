@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import json
 import random
+import os
 
 with open("Setting.json", "r", encoding="utf8") as jfile:
     jdata = json.load(jfile)
@@ -27,14 +28,9 @@ async def on_member_remove(member):
     channel = bot.get_channel(int(jdata["Left_channel"]))
     await channel.send(f'{member} left!')
 
-@bot.command()
-async def ping(ctx):
-    await ctx.send(f'{round(bot.latency*1000)} (ms)')
+for filename in os.listdir("./cmds"):
+    if filename.endswith('.py'):
+        bot.load_extension(f"cmds.{filename[:-3]}")
 
-@bot.command()
-async def pic(ctx):
-    random_pic = random.choice(jdata["picture"])
-    picture = discord.File(random_pic)
-    await ctx.send(file=picture)
-
-bot.run(jdata["Token"])
+if __name__ == "__main__":
+    bot.run(jdata["Token"])
