@@ -10,6 +10,9 @@ class Main(Cog_Extension):
     async def ping(self, ctx):
         await ctx.send(f'{round(self.bot.latency*1000)} (ms)')
 
+    @commands.command()
+    async def hi(self, ctx):
+        await ctx.send("I love Stacy, she's so sexy in her leggings") 
            
 
 def setup(bot):
