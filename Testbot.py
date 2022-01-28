@@ -1,5 +1,11 @@
 import discord
 from discord.ext import commands
+import json
+import random
+
+with open("Setting.json", "r", encoding="utf8") as jfile:
+    jdata = json.load(jfile)
+
 
 intents = discord.Intents.default()
 intents.members = True
@@ -12,13 +18,23 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    channel = bot.get_channel(936592853918969866)
+    channel = bot.get_channel(int(jdata["Left_channel"]))
     await channel.send(f'{member} join!')
 
 
 @bot.event
-async def on_member_leave(member):
-    channel = bot.get_channel(936592889465683988)
+async def on_member_remove(member):
+    channel = bot.get_channel(int(jdata["Left_channel"]))
     await channel.send(f'{member} left!')
 
-bot.run("OTM2MTMzNDgxNTMxMDc2NjE5.YfIwPg.z1hak3Iquzr5CHrFu35OPNzsk6U")
+@bot.command()
+async def ping(ctx):
+    await ctx.send(f'{round(bot.latency*1000)} (ms)')
+
+@bot.command()
+async def pic(ctx):
+    random_pic = random.choice(jdata["picture"])
+    picture = discord.File(random_pic)
+    await ctx.send(file=picture)
+
+bot.run(jdata["Token"])
