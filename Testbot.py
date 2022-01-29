@@ -17,15 +17,7 @@ bot = commands.Bot(command_prefix="[", intents = intents)
 async def on_ready():
     print("Bot is Online!")
 
-@bot.event
-async def on_member_join(member):
-    channel = bot.get_channel(int(jdata["Left_channel"]))
-    await channel.send(f'{member} join!')
-
-@bot.event
-async def on_member_remove(member):
-    channel = bot.get_channel(int(jdata["Left_channel"]))
-    await channel.send(f'{member} left!')
+    
 
 @bot.command()
 async def load(ctx, extension):
