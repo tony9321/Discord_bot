@@ -9,12 +9,12 @@ class Task(Cog_Extension):
 
         async def interval():
             await self.bot.wait_until_ready()
-            self.channel = self.bot.get_channel(936114894359638086)
+            self.channel=self.bot.get_channel(936616436389015582)
             while not self.bot.is_closed():
-                await self.channel.send("我還活著拉!!")
-                await asyncio.sleep(5) # sec
+                await self.channel.send("我還活著!")
+                await asyncio.sleep(3) #sec
 
-        self.bg_task = self.bot.loop.create_task(interval())        
+        self.bg_task = self.bot.loop.create_task(interval())
 
 def setup(bot):
     bot.add_cog(Task(bot))
